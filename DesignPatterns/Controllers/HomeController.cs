@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Models;
+﻿using DesignPatterns.BuilderModels;
+using DesignPatterns.Models;
 using DesignPatterns.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,14 +36,28 @@ namespace DesignPatterns.Controllers
         [HttpGet]
         public IActionResult AddMustang()
         {
-            _vehicleRepository.AddVehicle(new Car("red","Ford","Mustang"));
+            var builder = new CarModelBuilder();
+            var newCar = builder
+                .SetColor("red")
+                .SetBrand("Ford")
+                .SetModel("Mustang")
+                .SetYear(2023)
+                .Build();
+            _vehicleRepository.AddVehicle(newCar);
             return Redirect("/");
         }
 
         [HttpGet]
         public IActionResult AddExplorer()
         {
-            _vehicleRepository.AddVehicle(new Car("red", "Ford", "Explorer"));
+            var builder = new CarModelBuilder();
+            var newCar = builder
+                .SetColor("red")
+                .SetBrand("Explorer")
+                .SetModel("Ford")
+                .SetYear(2023)
+                .Build();
+            _vehicleRepository.AddVehicle(newCar);
             return Redirect("/");
         }
 
